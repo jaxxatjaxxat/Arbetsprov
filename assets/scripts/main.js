@@ -41,7 +41,18 @@
 
 	//Add keyup eventlistener to inputs
 	for (var i = 0; i < inputSearch.length; i++) {
-	   inputSearch[i].addEventListener("keyup", function(){searchTerms(this, i - 1)}, true);
+		inputSearch[i].addEventListener("keyup", debounce(function() {
+			searchTerms(inputSearch[i-1], i - 1);
+		}, 500), true);
+	}
+
+	//Delay search
+	function debounce(fn, duration) {
+	  	var timer;
+	  	return function(){
+			clearTimeout(timer);
+			timer = setTimeout(fn, duration);
+	  	}
 	}
 
 	//Prevent clicking "ENTER" from submitting the form & save selected to array & get html for listOfSelections
@@ -98,6 +109,7 @@
 		}
 
 		loadingAnim[i].classList.add("loading");
+		thisInputSearch.disabled = true;
 
 		//Get data from url
 		getJSON('https://swapi.co/api/starships',
@@ -106,6 +118,7 @@
 				console.log('Something went wrong: ' + err);
 			} else {
 				loadingAnim[i].classList.remove("loading");
+				thisInputSearch.disabled = false;
 				searchData(data, thisInputSearch, partialSearchResultsContainer);
 			}
 		});

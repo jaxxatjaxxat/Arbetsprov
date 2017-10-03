@@ -15,3 +15,6 @@
 3. Run gulp to compile Sass and JS.
 4. Open public/index.html in browser.
 5. Run gulp watch to monitor your JS and SASS. (For developing purposes)
+
+Missing features:
+1. Autocomplete/Partialresultlist is not navigable by keys (arrowkeys)
