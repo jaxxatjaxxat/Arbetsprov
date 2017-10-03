@@ -73,21 +73,21 @@ ul
 				.delete-button
 					display: block
 			> div:not(.delete-button)
+				display: table
+				width: 100%
 				padding-left: 35px
 				padding-right: 54px
-				min-height: 54px
+				height: 54px
 				> span
-					display: table
-					min-height: 54px
-					line-height: 54px
+					display: table-cell
+					width: 50%
+					vertical-align: middle
+					text-align: center
 					font-size: 14px
 					color: #fff
 					&:first-child
+						text-align: left
 						font-size: 18px
-					> span
-						display: table-cell
-						vertical-align: middle
-						line-height: $line-height-base
 			.delete-button
 				display: none
 				position: absolute

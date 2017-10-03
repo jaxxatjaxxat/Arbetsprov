@@ -22,7 +22,8 @@
 	var getJSON = function(url, callback) {
 		var xhr = new XMLHttpRequest();
 		xhr.open('GET', url, true);
-		xhr.responseType = 'json';		
+		xhr.responseType = 'json';
+		//xhr.responseType = 'text';
 		xhr.onload = function() {
 			var status = xhr.status;
 			if (status === 200) {
@@ -48,11 +49,11 @@
 
 	//Delay search
 	function debounce(fn, duration) {
-	  	var timer;
-	  	return function(){
+		var timer;
+		return function(){
 			clearTimeout(timer);
 			timer = setTimeout(fn, duration);
-	  	}
+		}
 	}
 
 	//Prevent clicking "ENTER" from submitting the form & save selected to array & get html for listOfSelections
@@ -85,8 +86,8 @@
 		for (var i = 0; i < listOfSelectionsArray.length; i++) {
 			out += "<li>" +
 				"<div class='clearfix'>" +
-				"<span class='col-sm-6'><span>" + listOfSelectionsArray[i].title + "</span></span>" +
-				"<span class='col-sm-6'>" + listOfSelectionsArray[i].timestamp + "</span>" +
+				"<span>" + listOfSelectionsArray[i].title + "</span>" +
+				"<span>" + listOfSelectionsArray[i].timestamp + "</span>" +
 				"</div>" +
 				"<div role='button' class='delete-button'>" +
 				"<span class='glyphicon glyphicon-remove'></span>" +
@@ -112,7 +113,7 @@
 		thisInputSearch.disabled = true;
 
 		//Get data from url
-		getJSON('https://swapi.co/api/starships',
+		getJSON('https://swapi.co/api/starships/?format=json',
 		function(err, data) {
 			if (err !== null) {
 				console.log('Something went wrong: ' + err);
@@ -168,8 +169,8 @@
 		var partialSearchResultsContainerList = partialSearchResultsContainer.getElementsByTagName("LI");
 
 		for (var i = 0; i < partialSearchResultsContainerList.length; i++) {
-			partialSearchResultsContainerList[i].addEventListener("click", function() {
-				thisInputSearch.value = this.innerText;
+			partialSearchResultsContainerList[i].addEventListener("click", function(event) {
+				thisInputSearch.value = event.target.textContent;
 				thisInputSearch.focus();
 				removePartialResultsListAndBorderRadiusClass(partialSearchResultsContainer, page);
 				isInputValueValid = true;
